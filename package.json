@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/RemLampa/tulongan-frontend/issues"
   },
-  "homepage": "https://github.com/RemLampa/tulongan-frontend#readme"
+  "homepage": "https://github.com/RemLampa/tulongan-frontend#readme",
+  "dependencies": {
+    "next": "^6.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
 }
