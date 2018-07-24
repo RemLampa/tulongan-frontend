@@ -1,0 +1,19 @@
+{
+  "name": "tulongan-frontend",
+  "version": "0.0.1-a",
+  "description": "This is the frontend for Tulongan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RemLampa/tulongan-frontend.git"
+  },
+  "author": "Rem Lampa",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/RemLampa/tulongan-frontend/issues"
+  },
+  "homepage": "https://github.com/RemLampa/tulongan-frontend#readme"
+}
