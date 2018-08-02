@@ -4,7 +4,10 @@
   "description": "This is the frontend for Tulongan",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "export": "next export",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +21,11 @@
   },
   "homepage": "https://github.com/RemLampa/tulongan-frontend#readme",
   "dependencies": {
+    "@zeit/next-typescript": "^1.1.0",
     "express": "^4.16.3",
     "next": "^6.1.1",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-markdown": "^3.4.1"
   }
 }
