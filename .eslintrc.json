@@ -6,8 +6,12 @@
         "es6": true
     },
     "plugins": [
+        "react",
         "typescript"
     ],
+    "rules": {
+       "typescript/no-unused-vars": "warn"
+    },
     "overrides": [
         {
             "files": [
@@ -19,6 +23,33 @@
                 "jest": true,
                 "browser": true,
                 "es6": true
+            }
+        },
+        {
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "rules": {
+                "no-undef": "off"
+            }
+        },
+        {
+            "files": [
+                "pages/*.js",
+                "pages/*.ts",
+                "pages/*.tsx" 
+            ],
+            "rules": {
+                "react/react-in-jsx-scope": "off"
+            }
+        },
+        {
+            "files": [
+                "*.tsx"
+            ],
+            "rules": {
+                "react/jsx-filename-extension": "off"
             }
         }
     ]
