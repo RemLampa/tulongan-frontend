@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "export": "next export",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "lint": "eslint pages/*.*",
+    "lint:fix": "yarn lint --fix"
   },
   "repository": {
     "type": "git",

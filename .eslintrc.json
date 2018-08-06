@@ -1,5 +1,9 @@
 {
-    "extends": "airbnb",
+    "extends": [
+        "eslint:recommended",
+        "airbnb",
+        "plugin:prettier/recommended"
+    ],
     "parser": "typescript-eslint-parser",
     "env": {
         "browser": true,
@@ -7,7 +11,8 @@
     },
     "plugins": [
         "react",
-        "typescript"
+        "typescript",
+        "prettier"
     ],
     "rules": {
        "typescript/no-unused-vars": "warn"
@@ -37,6 +42,7 @@
         {
             "files": [
                 "pages/*.js",
+                "pages/*.jsx",
                 "pages/*.ts",
                 "pages/*.tsx" 
             ],
