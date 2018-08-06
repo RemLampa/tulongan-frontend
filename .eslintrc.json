@@ -1,0 +1,25 @@
+{
+    "extends": "airbnb",
+    "parser": "typescript-eslint-parser",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "plugins": [
+        "typescript"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.test.js",
+                "*.test.ts",
+                "*.test.tsx"
+            ],
+            "env": {
+                "jest": true,
+                "browser": true,
+                "es6": true
+            }
+        }
+    ]
+}
