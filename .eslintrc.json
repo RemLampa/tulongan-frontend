@@ -15,7 +15,9 @@
         "prettier"
     ],
     "rules": {
-       "typescript/no-unused-vars": "warn"
+       "typescript/no-unused-vars": "warn",
+       "eol-last": ["error", "always"],
+       "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }]
     },
     "overrides": [
         {
