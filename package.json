@@ -4,14 +4,15 @@
   "description": "This is the frontend for Tulongan",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "export": "next export",
+    "dev": "node src/server.js",
+    "next": "next src",
+    "build": "next build src",
+    "start": "NODE_ENV=production node src/server.js",
+    "export": "next export src -o static-site",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "lint": "eslint pages/*.*",
+    "lint": "eslint src/*.*",
     "lint:fix": "yarn lint --fix"
   },
   "repository": {
