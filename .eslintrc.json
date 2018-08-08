@@ -50,6 +50,17 @@
             "rules": {
                 "react/jsx-filename-extension": "off"
             }
+        },
+        {
+            "files": [
+                "src/server/**/*.ts",
+                "src/server/**/*.js"
+            ],
+            "env": {
+                "browser": false,
+                "es6": true,
+                "node": true
+            }
         }
     ]
 }

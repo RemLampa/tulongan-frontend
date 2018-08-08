@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "typeRoots": [ "./node_modules/@types" ],
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
@@ -17,6 +18,15 @@
     "lib": [
       "dom",
       "es2016"
+    ],
+    "types": [
+      "node"
     ]
-  }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
