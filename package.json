@@ -4,7 +4,7 @@
   "description": "This is the frontend for Tulongan",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/server/index.ts",
+    "dev": "nodemon",
     "next": "next src",
     "build": "next build src",
     "start": "NODE_ENV=production node src/server.js",
@@ -49,8 +49,10 @@
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-typescript": "^0.12.0",
     "jest": "^23.4.2",
+    "nodemon": "^1.18.3",
     "prettier": "1.14.0",
     "ts-jest": "^23.1.2",
+    "ts-node": "^7.0.0",
     "typescript": "^2.9.1",
     "typescript-eslint-parser": "^17.0.1"
   }
