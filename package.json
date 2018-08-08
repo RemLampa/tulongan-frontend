@@ -12,7 +12,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "lint": "eslint src/*.*",
+    "lint": "eslint \"src/**\"",
     "lint:fix": "yarn lint --fix"
   },
   "repository": {

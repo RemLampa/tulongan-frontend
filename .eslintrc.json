@@ -17,7 +17,9 @@
     "rules": {
        "typescript/no-unused-vars": "warn",
        "eol-last": ["error", "always"],
-       "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }]
+       "react/react-in-jsx-scope": "off",
+       "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
+       "react/jsx-one-expression-per-line": "off"
     },
     "overrides": [
         {
@@ -39,17 +41,6 @@
             ],
             "rules": {
                 "no-undef": "off"
-            }
-        },
-        {
-            "files": [
-                "pages/*.js",
-                "pages/*.jsx",
-                "pages/*.ts",
-                "pages/*.tsx" 
-            ],
-            "rules": {
-                "react/react-in-jsx-scope": "off"
             }
         },
         {
