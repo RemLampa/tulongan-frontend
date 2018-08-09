@@ -29,6 +29,7 @@
     "@types/node": "^10.5.7",
     "@zeit/next-typescript": "^1.1.0",
     "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "isomorphic-unfetch": "^2.1.1",
     "next": "^6.1.1",
