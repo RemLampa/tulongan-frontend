@@ -1,4 +1,5 @@
 .next
+.env
 build
 static-site
 
