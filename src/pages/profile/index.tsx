@@ -1,10 +1,16 @@
 import * as React from 'react';
 import fetch from 'isomorphic-unfetch';
 
-const Profile: React.StatelessComponent<{}> = () => (
+const Profile: React.StatelessComponent<{}> = ({ prURL }) => (
   <div>
     <h1>Profile Page</h1>
     <h3>Rem Lampa</h3>
+
+    <h2>
+      <a href={prURL} rel="noreferrer noopener" target="_blank">
+        PR PAGE
+      </a>
+    </h2>
 
     <h3>Open Source Contributions</h3>
     <ul>
@@ -17,23 +23,21 @@ const Profile: React.StatelessComponent<{}> = () => (
 Profile.getInitialProps = async ({ req }) => {
   const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
 
-  console.log(baseUrl);
-
   const res = await fetch(`${baseUrl}/get-repo-link`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      test: 'test',
+      username: 'RemLampa',
+      repo: 'RemLampa/tulongan-frontend',
+      // repo: 'ContributorCovenant/contributor_covenant',
     }),
   });
 
-  const data = await res.json();
+  const { prURL } = await res.json();
 
-  console.log(data);
-
-  return { res };
+  return { prURL };
 };
 
 export default Profile;
