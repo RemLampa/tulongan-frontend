@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
 
-const github = require('octonode');
+// const github = require('octonode');
+
+const db = require('../mock-db/db.json');
 
 require('dotenv').config();
 
@@ -19,29 +21,12 @@ app
 
     server.use(bodyParser.json());
 
-    server.post('/get-repo-link', (req, res) => {
+    server.post('/get-user-repos', (_, res) => {
       console.log('from server:');
-      console.log(req.body);
 
-      const user = req.body.username;
+      const { username, repositories } = db;
 
-      const client = github.client(process.env.GH_TOKEN);
-
-      const ghrepo = client.repo(req.body.repo);
-
-      ghrepo.collaborators(user, (err, _, body) => {
-        if (err || body.status !== '204 No Content') {
-          return res.status(401).json({
-            message: 'The user is not a collaborator of the repository.',
-          });
-        }
-
-        const prURL = `https://github.com/${
-          req.body.repo
-        }/pulls?utf8=✓&q=is%3Apr+${req.body.username}`;
-
-        return res.status(200).json({ prURL });
-      });
+      res.send({ username, repositories });
     });
 
     server.get('*', (req, res) => handle(req, res));
