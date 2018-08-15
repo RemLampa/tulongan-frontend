@@ -29,6 +29,34 @@ app
       res.send({ username, repositories });
     });
 
+    server.post('/add-user-repo', async (req, res) => {
+      console.log('from server:');
+
+      const { repoOwner, repoName } = req.body;
+
+      const githubReqURL = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?author=RemLampa`;
+
+      const githubRes = await fetch(githubReqURL, {
+        method: 'GET',
+      });
+
+      if (githubRes.status !== 200) {
+        const errorMessage = `${repoOwner}/${repoName} is an invalid Github repository.`;
+
+        return res.status(404).json({ error: { message: errorMessage } });
+      }
+
+      const commits = await githubRes.json();
+
+      if (!commits.length) {
+        const errorMessage = `You are not a contributor in ${repoOwner}/${repoName}`;
+
+        return res.status(200).json({ error: { message: errorMessage } });
+      }
+
+      return res.json(req.body);
+    });
+
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(3000, err => {
