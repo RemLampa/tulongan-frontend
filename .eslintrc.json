@@ -15,12 +15,22 @@
         "prettier"
     ],
     "rules": {
-       "typescript/no-unused-vars": "warn",
-       "eol-last": ["error", "always"],
-       "react/react-in-jsx-scope": "off",
-       "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
-       "react/jsx-one-expression-per-line": "off",
-       "react/prop-types": "off"
+        "typescript/no-unused-vars": "warn",
+        "eol-last": ["error", "always"],
+        "react/react-in-jsx-scope": "off",
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
+        "react/jsx-one-expression-per-line": "off",
+        "react/prop-types": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [ ".js", ".jsx", ".ts", ".tsx" ]
+            }
+        },
+        "import/parsers": {
+            "typescript-eslint-parser": [ ".ts", ".tsx" ]
+        } 
     },
     "overrides": [
         {
