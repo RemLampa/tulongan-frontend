@@ -6,12 +6,19 @@ interface GithubURLs {
   prURL: string;
 }
 
-function buildGitHubURLs(repo: string, username: string): GithubURLs {
-  const homepageURL = `https://github.com/${repo}`;
+interface RepoObj {
+  repoName: string;
+  repoOwner: string;
+}
 
-  const commitsURL = `https://github.com/${repo}/commits?author=${username}`;
+function buildGitHubURLs(repo: RepoObj, username: string): GithubURLs {
+  const repoString = `${repo.repoOwner}/${repo.repoName}`;
 
-  const prURL = `https://github.com/${repo}/pulls?utf8=✓&q=is%3Apr+author%3A${username}+`;
+  const homepageURL = `https://github.com/${repoString}`;
+
+  const commitsURL = `https://github.com/${repoString}/commits?author=${username}`;
+
+  const prURL = `https://github.com/${repoString}/pulls?utf8=✓&q=is%3Apr+author%3A${username}+`;
 
   return {
     homepageURL,
@@ -21,7 +28,7 @@ function buildGitHubURLs(repo: string, username: string): GithubURLs {
 }
 
 export interface Props {
-  repo: string;
+  repo: RepoObj;
   username: string;
 }
 
@@ -30,7 +37,7 @@ const Repo: React.StatelessComponent<{ Props }> = ({ repo, username }) => {
 
   return (
     <li>
-      <h4>{repo}</h4>
+      <h4>{repo.repoName}</h4>
       <div>
         <a href={homepageURL}>Visit Repo</a> |&nbsp;
         <a href={commitsURL}>View User&apos;s Commits</a> |&nbsp;

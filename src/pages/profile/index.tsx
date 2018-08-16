@@ -6,7 +6,10 @@ import Repo from './components/Repo';
 
 export interface Props {
   username: string;
-  repositories: string[];
+  repositories: {
+    repoOwner: string;
+    repoName: string;
+  }[];
 }
 
 const Profile: React.StatelessComponent<{ Props }> = ({

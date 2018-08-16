@@ -1,10 +1,25 @@
 {
   "username": "RemLampa",
   "repositories": [
-    "RemLampa/tulongan-frontend",
-    "RemLampa/cs50",
-    "RemLampa/go-webdev",
-    "RemLampa/facebook-video-speed-control",
-    "RemLampa/markdown-preview"
+    {
+      "repoOwner": "RemLampa",
+      "repoName": "tulongan-frontend"
+    },
+    {
+      "repoOwner": "RemLampa",
+      "repoName": "cs50"
+    },
+    {
+      "repoOwner": "RemLampa",
+      "repoName": "go-webdev"
+    },
+    {
+      "repoOwner": "RemLampa",
+      "repoName": "facebook-video-speed-control"
+    },
+    {
+      "repoOwner": "RemLampa",
+      "repoName": "markdown-preview"
+    }
   ]
 }
