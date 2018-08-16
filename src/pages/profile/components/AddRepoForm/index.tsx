@@ -4,33 +4,35 @@ import { Formik } from 'formik';
 async function addRepo(values, actions) {
   const { repoOwner, repoName } = values;
 
-  const githubReqURL = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?author=RemLampa`;
+  const addRepoEndpoint = '/add-user-repo';
 
-  const res = await fetch(githubReqURL, {
-    method: 'GET',
+  const res = await fetch(addRepoEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ repoOwner, repoName }),
   });
 
+  const { error, message } = await res.json();
+
   if (res.status !== 200) {
-    const errorMessage = `Error: ${repoOwner}/${repoName} is an invalid Github repository.`;
+    const errorMessage = `Error: ${error.message}`;
 
     actions.setErrors({ repoOwner: errorMessage });
 
     return actions.setSubmitting(false);
   }
 
-  const commits = await res.json();
-
-  if (!commits.length) {
-    const errorMessage = `Error: You are not a contributor in ${repoOwner}/${repoName}`;
+  if (error) {
+    const errorMessage = `Error: ${error.message}`;
 
     actions.setErrors({ repoOwner: errorMessage });
 
     return actions.setSubmitting(false);
   }
 
-  console.log(
-    `${repoOwner}/${repoName} has been successfully added to your portfolio!`,
-  );
+  console.log(message);
 
   return actions.setSubmitting(false);
 }
