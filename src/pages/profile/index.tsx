@@ -4,7 +4,15 @@ import fetch from 'isomorphic-unfetch';
 import AddRepoForm from './components/AddRepoForm';
 import Repo from './components/Repo';
 
-const Profile: React.StatelessComponent<{}> = ({ username, repositories }) => (
+export interface Props {
+  username: string;
+  repositories: string[];
+}
+
+const Profile: React.StatelessComponent<{ Props }> = ({
+  username,
+  repositories,
+}) => (
   <div>
     <h1>Profile Page</h1>
     <h3>Rem Lampa</h3>

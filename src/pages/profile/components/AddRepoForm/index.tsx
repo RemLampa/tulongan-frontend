@@ -1,7 +1,17 @@
 import * as React from 'react';
 import { Formik } from 'formik';
 
-async function addRepo(values, actions) {
+interface Values {
+  repoOwner: string;
+  repoName: string;
+}
+
+interface Actions {
+  setErrors: (...args: any[]) => any;
+  setSubmitting: (...args: any[]) => any;
+}
+
+async function addRepo(values: Values, actions: Actions) {
   const { repoOwner, repoName } = values;
 
   const addRepoEndpoint = '/add-user-repo';

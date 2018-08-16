@@ -20,7 +20,12 @@ function buildGitHubURLs(repo: string, username: string): GithubURLs {
   };
 }
 
-const Repo: React.StatelessComponent<{}> = ({ repo, username }) => {
+export interface Props {
+  repo: string;
+  username: string;
+}
+
+const Repo: React.StatelessComponent<{ Props }> = ({ repo, username }) => {
   const { homepageURL, commitsURL, prURL } = buildGitHubURLs(repo, username);
 
   return (
