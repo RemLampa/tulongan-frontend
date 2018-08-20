@@ -27,6 +27,7 @@
   "homepage": "https://github.com/RemLampa/tulongan-frontend#readme",
   "dependencies": {
     "@types/node": "^10.5.7",
+    "@types/react": "^16.4.11",
     "@zeit/next-typescript": "^1.1.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
