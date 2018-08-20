@@ -32,7 +32,7 @@ export interface Props {
   username: string;
 }
 
-const Repo: React.StatelessComponent<{ Props }> = ({ repo, username }) => {
+const Repo: React.SFC<Props> = ({ repo, username }) => {
   const { homepageURL, commitsURL, prURL } = buildGitHubURLs(repo, username);
 
   return (

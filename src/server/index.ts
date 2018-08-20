@@ -54,6 +54,8 @@ app
         return res.status(200).json({ error: { message: errorMessage } });
       }
 
+      db.repositories.push({ repoOwner, repoName });
+
       const successMessage = `${repoOwner}/${repoName} has been successfully added to user's portfolio`;
 
       return res.status(200).json({ message: successMessage });

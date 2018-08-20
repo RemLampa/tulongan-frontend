@@ -11,7 +11,11 @@ interface Actions {
   setSubmitting: (...args: any[]) => any;
 }
 
-async function addRepo(values: Values, actions: Actions) {
+async function addRepo(
+  values: Values,
+  actions: Actions,
+  callback: Props['onSubmit'],
+) {
   const { repoOwner, repoName } = values;
 
   const addRepoEndpoint = '/add-user-repo';
@@ -42,19 +46,33 @@ async function addRepo(values: Values, actions: Actions) {
     return actions.setSubmitting(false);
   }
 
+  callback({
+    repoOwner,
+    repoName,
+  });
+
   console.log(message);
 
   return actions.setSubmitting(false);
 }
 
-const AddRepoForm: React.StatelessComponent<{}> = () => (
+export interface Props {
+  onSubmit: (
+    repo: {
+      repoName: string;
+      repoOwner: string;
+    },
+  ) => void;
+}
+
+const AddRepoForm: React.SFC<Props> = ({ onSubmit }) => (
   <Formik
     initialValues={{
       repoOwner: '',
       repoName: '',
     }}
     validate={() => {}}
-    onSubmit={addRepo}
+    onSubmit={(values, actions) => addRepo(values, actions, onSubmit)}
     render={({
       values,
       errors,
