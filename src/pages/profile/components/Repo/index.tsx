@@ -37,7 +37,9 @@ const Repo: React.SFC<Props> = ({ repo, username }) => {
 
   return (
     <li>
-      <h4>{repo.repoName}</h4>
+      <h4>
+        {repo.repoOwner}/{repo.repoName}
+      </h4>
       <div>
         <a href={homepageURL}>Visit Repo</a> |&nbsp;
         <a href={commitsURL}>View User&apos;s Commits</a> |&nbsp;
