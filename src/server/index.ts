@@ -61,6 +61,29 @@ app
       return res.status(200).json({ message: successMessage });
     });
 
+    server.post('/delete-user-repo', (req, res) => {
+      const { id } = req.body;
+
+      const { repositories } = db;
+
+      if (id < 0 || id > repositories.length - 1) {
+        const error = {
+          message: 'Invalid ID!',
+        };
+
+        return res.status(416).json({ error });
+      }
+
+      repositories.splice(id, 1);
+
+      const successResponse = {
+        id,
+        message: `Repo ID ${id} was succesfully deleted.`,
+      };
+
+      return res.status(200).json(successResponse);
+    });
+
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(3000, err => {

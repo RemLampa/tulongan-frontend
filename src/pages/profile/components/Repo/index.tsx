@@ -30,20 +30,27 @@ function buildGitHubURLs(repo: RepoObj, username: string): GithubURLs {
 export interface Props {
   repo: RepoObj;
   username: string;
+  onDelete: (number) => void;
+  id: number;
 }
 
-const Repo: React.SFC<Props> = ({ repo, username }) => {
+const Repo: React.SFC<Props> = ({ repo, username, onDelete, id }) => {
   const { homepageURL, commitsURL, prURL } = buildGitHubURLs(repo, username);
 
   return (
     <li>
       <h4>
-        {repo.repoOwner}/{repo.repoName}
+        {repo.repoOwner}/{repo.repoName} ID: {id}
       </h4>
       <div>
         <a href={homepageURL}>Visit Repo</a> |&nbsp;
         <a href={commitsURL}>View User&apos;s Commits</a> |&nbsp;
         <a href={prURL}>View User&apos;s PRs</a>
+      </div>
+      <div>
+        <button type="button" onClick={() => onDelete(id)}>
+          Remove Repo
+        </button>
       </div>
     </li>
   );

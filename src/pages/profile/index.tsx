@@ -57,6 +57,32 @@ class Profile extends React.Component<Props, State> {
     });
   };
 
+  deleteRepo = async (id: number) => {
+    const res = await fetch('/delete-user-repo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (res.status !== 200) {
+      const { error } = await res.json();
+
+      return console.log(error.message);
+    }
+
+    const { message } = await res.json();
+
+    const { repositories } = this.state;
+
+    const updatedRepositories = repositories.filter((_, index) => index !== id);
+
+    this.setState({ repositories: updatedRepositories });
+
+    return console.log(message);
+  };
+
   render() {
     const { username } = this.props;
     const { repositories } = this.state;
@@ -70,8 +96,13 @@ class Profile extends React.Component<Props, State> {
 
         <h3>Open Source Contributions</h3>
         <ul>
-          {repositories.map(repo => (
-            <Repo repo={repo} username={username} />
+          {repositories.map((repo, index) => (
+            <Repo
+              repo={repo}
+              username={username}
+              onDelete={this.deleteRepo}
+              id={index}
+            />
           ))}
         </ul>
       </div>
