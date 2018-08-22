@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
 
+require('isomorphic-unfetch');
+
 // const github = require('octonode');
 
 const db = require('../mock-db/db.json');
@@ -82,6 +84,27 @@ app
       };
 
       return res.status(200).json(successResponse);
+    });
+
+    server.get('/callback', async (req, res) => {
+      const { code } = req.query;
+      const { GH_CLIENT_ID, GH_CLIENT_SECRET } = process.env;
+
+      const data = await fetch(
+        `https://github.com/login/oauth/access_token?client_id=${GH_CLIENT_ID}&client_secret=${GH_CLIENT_SECRET}&code=${code}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+          },
+        },
+      );
+
+      const auth = await data.json();
+
+      console.log(auth);
+
+      res.status(200).json(req.query);
     });
 
     server.get('*', (req, res) => handle(req, res));
