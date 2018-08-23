@@ -31,6 +31,7 @@
     "@types/react": "^16.4.11",
     "@zeit/next-typescript": "^1.1.0",
     "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.0.0",
     "dotenv-webpack": "^1.5.7",
     "express": "^4.16.3",
