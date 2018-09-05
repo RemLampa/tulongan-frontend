@@ -14,6 +14,9 @@ module.exports = withTypescript({
     const plugins = config.plugins || [];
 
     // eslint-disable-next-line no-param-reassign
+    config.resolve.modules = [path.resolve(__dirname, 'src'), 'node_modules'];
+
+    // eslint-disable-next-line no-param-reassign
     config.plugins = [
       ...plugins,
       new Dotenv({
