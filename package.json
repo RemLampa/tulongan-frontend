@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/RemLampa/tulongan-frontend#readme",
   "dependencies": {
+    "@types/graphql": "^14.0.0",
     "@types/next": "^6.1.4",
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.14",
