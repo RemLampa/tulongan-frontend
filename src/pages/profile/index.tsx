@@ -1,8 +1,24 @@
-import * as React from 'react';
 import fetch from 'isomorphic-unfetch';
+import * as React from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+
+import withApollo from 'libs/withApollo';
 
 import AddRepoForm from './components/AddRepoForm';
 import Repo from './components/Repo';
+
+const USER_QUERY = gql`
+  query user {
+    user {
+      userName
+      repositories {
+        owner
+        name
+      }
+    }
+  }
+`;
 
 interface Repositories {
   repoOwner: string;
@@ -27,25 +43,25 @@ class Profile extends React.Component<Props, State> {
     };
   }
 
-  static getInitialProps = async ({ req }) => {
-    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+  // static getInitialProps = async ({ req }) => {
+  //   const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
 
-    const res = await fetch(`${baseUrl}/get-user-repos`, {
-      method: 'POST',
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
-      // body: JSON.stringify({
-      //   username: 'RemLampa',
-      //   repo: 'RemLampa/tulongan-frontend',
-      //   // repo: 'ContributorCovenant/contributor_covenant',
-      // }),
-    });
+  //   const res = await fetch(`${baseUrl}/get-user-repos`, {
+  //     method: 'POST',
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+  // body: JSON.stringify({
+  //   username: 'RemLampa',
+  //   repo: 'RemLampa/tulongan-frontend',
+  //   // repo: 'ContributorCovenant/contributor_covenant',
+  // }),
+  // });
 
-    const { username, repositories } = await res.json();
+  // const { username, repositories } = await res.json();
 
-    return { username, repositories };
-  };
+  // return { username, repositories };
+  // };
 
   addRepo = (repo: Repositories) => {
     const { repositories } = this.state;
@@ -84,9 +100,6 @@ class Profile extends React.Component<Props, State> {
   };
 
   render() {
-    const { username } = this.props;
-    const { repositories } = this.state;
-
     return (
       <div>
         <h1>Profile Page</h1>
@@ -96,18 +109,28 @@ class Profile extends React.Component<Props, State> {
 
         <h3>Open Source Contributions</h3>
         <ul>
-          {repositories.map((repo, index) => (
-            <Repo
-              repo={repo}
-              username={username}
-              onDelete={this.deleteRepo}
-              id={index}
-            />
-          ))}
+          <Query query={USER_QUERY}>
+            {({ loading, error, data }) => {
+              if (loading) return 'Loading...';
+
+              if (error) return `Error: ${error}`;
+
+              console.log(data.user.repositories[0]);
+
+              return data.user.repositories.map((repo, index) => (
+                <Repo
+                  repo={repo}
+                  username={data.user.userName}
+                  onDelete={this.deleteRepo}
+                  id={index}
+                />
+              ));
+            }}
+          </Query>
         </ul>
       </div>
     );
   }
 }
 
-export default Profile;
+export default withApollo(Profile);

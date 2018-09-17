@@ -7,12 +7,12 @@ interface GithubURLs {
 }
 
 interface RepoObj {
-  repoName: string;
-  repoOwner: string;
+  name: string;
+  owner: string;
 }
 
 function buildGitHubURLs(repo: RepoObj, username: string): GithubURLs {
-  const repoString = `${repo.repoOwner}/${repo.repoName}`;
+  const repoString = `${repo.owner}/${repo.name}`;
 
   const homepageURL = `https://github.com/${repoString}`;
 
@@ -40,7 +40,7 @@ const Repo: React.SFC<Props> = ({ repo, username, onDelete, id }) => {
   return (
     <li>
       <h4>
-        {repo.repoOwner}/{repo.repoName} ID: {id}
+        {repo.owner}/{repo.name} ID: {id}
       </h4>
       <div>
         <a href={homepageURL}>Visit Repo</a> |&nbsp;
