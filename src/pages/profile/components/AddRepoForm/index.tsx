@@ -1,9 +1,23 @@
 import * as React from 'react';
 import { Formik } from 'formik';
+import { Mutation } from 'react-apollo';
+
+import gql from 'graphql-tag';
+
+import { USER_QUERY } from 'pages/profile';
+
+const ADD_REPO_MUTATION = gql`
+  mutation createRepo($repo: CreateRepo!) {
+    createRepoMutation(repo: $repo) {
+      name
+      owner
+    }
+  }
+`;
 
 interface Values {
-  repoOwner: string;
-  repoName: string;
+  owner: string;
+  name: string;
 }
 
 interface Actions {
@@ -14,44 +28,27 @@ interface Actions {
 async function addRepo(
   values: Values,
   actions: Actions,
-  callback: Props['onSubmit'],
+  mutation: (any) => Promise<any>,
 ) {
-  const { repoOwner, repoName } = values;
+  const { owner, name } = values;
 
-  const addRepoEndpoint = '/add-user-repo';
-
-  const res = await fetch(addRepoEndpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  await mutation({
+    variables: {
+      repo: {
+        owner,
+        name,
+      },
     },
-    body: JSON.stringify({ repoOwner, repoName }),
-  });
-
-  const { error, message } = await res.json();
-
-  if (res.status !== 200) {
-    const errorMessage = `Error: ${error.message}`;
-
-    actions.setErrors({ repoOwner: errorMessage });
-
-    return actions.setSubmitting(false);
-  }
-
-  if (error) {
-    const errorMessage = `Error: ${error.message}`;
-
-    actions.setErrors({ repoOwner: errorMessage });
-
-    return actions.setSubmitting(false);
-  }
-
-  callback({
-    repoOwner,
-    repoName,
-  });
-
-  console.log(message);
+    refetchQueries: [
+      {
+        query: USER_QUERY,
+      },
+    ],
+  })
+    .then(data => console.log(data))
+    .catch(error => {
+      actions.setFieldError('owner', error.message);
+    });
 
   return actions.setSubmitting(false);
 }
@@ -59,59 +56,63 @@ async function addRepo(
 export interface Props {
   onSubmit: (
     repo: {
-      repoName: string;
-      repoOwner: string;
+      name: string;
+      owner: string;
     },
   ) => void;
 }
 
-const AddRepoForm: React.SFC<Props> = ({ onSubmit }) => (
-  <Formik
-    initialValues={{
-      repoOwner: '',
-      repoName: '',
-    }}
-    validate={() => {}}
-    onSubmit={(values, actions) => addRepo(values, actions, onSubmit)}
-    render={({
-      values,
-      errors,
-      handleChange,
-      handleBlur,
-      isSubmitting,
-      handleSubmit,
-    }) => (
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="repo">
-          <h3>Add a Github repository to your portfolio</h3>
-          <div>
-            https&#x0003A;&#x0002f;&#x0002F;github.com&#x0002f;
-            <input
-              type="text"
-              name="repoOwner"
-              placeholder="repo owner"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.repoOwner}
-            />
-            &#x0002f;
-            <input
-              type="text"
-              name="repoName"
-              placeholder="repo name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.repoName}
-            />
-          </div>
-        </label>
-        <button type="submit" disabled={isSubmitting}>
-          Verify
-        </button>
-        {errors.repoOwner && <div>{errors.repoOwner}</div>}
-      </form>
+const AddRepoForm: React.SFC<{}> = () => (
+  <Mutation mutation={ADD_REPO_MUTATION}>
+    {mutation => (
+      <Formik
+        initialValues={{
+          owner: '',
+          name: '',
+        }}
+        validate={() => {}}
+        onSubmit={(values, actions) => addRepo(values, actions, mutation)}
+        render={({
+          values,
+          errors,
+          handleChange,
+          handleBlur,
+          isSubmitting,
+          handleSubmit,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="repo">
+              <h3>Add a Github repository to your portfolio</h3>
+              <div>
+                https&#x0003A;&#x0002f;&#x0002F;github.com&#x0002f;
+                <input
+                  type="text"
+                  name="owner"
+                  placeholder="repo owner"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.owner}
+                />
+                &#x0002f;
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="repo name"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                />
+              </div>
+            </label>
+            <button type="submit" disabled={isSubmitting}>
+              Verify
+            </button>
+            {errors.owner && <div>{errors.owner}</div>}
+          </form>
+        )}
+      />
     )}
-  />
+  </Mutation>
 );
 
 export default AddRepoForm;

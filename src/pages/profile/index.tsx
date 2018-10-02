@@ -8,7 +8,7 @@ import withApollo from 'libs/withApollo';
 import AddRepoForm from './components/AddRepoForm';
 import Repo from './components/Repo';
 
-const USER_QUERY = gql`
+export const USER_QUERY = gql`
   query user {
     user {
       userName
@@ -21,8 +21,8 @@ const USER_QUERY = gql`
 `;
 
 interface Repositories {
-  repoOwner: string;
-  repoName: string;
+  owner: string;
+  name: string;
 }
 
 export interface Props {
@@ -105,7 +105,7 @@ class Profile extends React.Component<Props, State> {
         <h1>Profile Page</h1>
         <h3>Rem Lampa</h3>
 
-        <AddRepoForm onSubmit={this.addRepo} />
+        <AddRepoForm />
 
         <h3>Open Source Contributions</h3>
         <ul>
