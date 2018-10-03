@@ -25,6 +25,15 @@ module.exports = withTypescript({
       }),
     ];
 
+    config.module.rules.push({
+      test: /.graphql?$/,
+      use: [
+        {
+          loader: 'webpack-graphql-loader',
+        },
+      ],
+    });
+
     return config;
   },
 });

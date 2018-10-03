@@ -72,6 +72,7 @@
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.3",
-    "typescript-eslint-parser": "^18.0.0"
+    "typescript-eslint-parser": "^18.0.0",
+    "webpack-graphql-loader": "^1.0.0"
   }
 }
