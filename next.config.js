@@ -26,10 +26,10 @@ module.exports = withTypescript({
     ];
 
     config.module.rules.push({
-      test: /.graphql?$/,
+      test: /.(graphql|gql)$/,
       use: [
         {
-          loader: 'webpack-graphql-loader',
+          loader: 'graphql-tag/loader',
         },
       ],
     });
